@@ -1,0 +1,35 @@
+﻿@model Principal.Models.Tool
+
+@{
+    ViewBag.Title = "Nueva Herramienta";
+    Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.Controller = "Home";
+    ViewBag.Action = "Extern";
+}
+
+<div>
+    @using (Html.BeginForm("NewTool", "Tools", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <label>Nombre</label>
+            <div>
+                @Html.TextBoxFor(model => model.name)
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <label>Descripción</label>
+            <div>
+                @Html.TextBoxFor(model => model.description)
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <button>Guardar</button>
+        <a href="@Url.Action("ToolList", "Tools")">Atras</a>
+    }
+</div>

@@ -1,0 +1,22 @@
+﻿@model Principal.Models.Worker
+
+@{
+    ViewBag.Title = "Eliminar Trabajador";
+    Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.Controller = "Home";
+    ViewBag.Action = "Extern";
+}
+
+<div>
+    @using (Html.BeginForm("WorkerDelete", "Workers", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <p>¿Seguro que quieres eliminar al trabajador @Model.name?</p>
+        </div>
+
+        <button>Eliminar</button>
+        <a href="@Url.Action("WorkerList", "Workers")">Atras</a>
+    }
+</div>

@@ -1,0 +1,22 @@
+﻿@model Principal.Models.Tool
+
+@{
+    ViewBag.Title = "Eliminar Herramienta";
+    Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.Controller = "Home";
+    ViewBag.Action = "Extern";
+}
+
+<div>
+    @using (Html.BeginForm("ToolDelete", "Tools", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <p>¿Seguro que quieres eliminar la herramienta @Model.name?</p>
+        </div>
+
+        <button>Eliminar</button>
+        <a href="@Url.Action("ToolList", "Tools")">Atras</a>
+    }
+</div>

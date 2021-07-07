@@ -1,0 +1,59 @@
+﻿@model Principal.Models.Assign
+
+@{
+    ViewBag.Title = "NewAssign";
+    Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.Controller = "Home";
+    ViewBag.Action = "Extern";
+}
+
+<div>
+    @using (Html.BeginForm("NewAssign", "Assign", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div>
+            <label>Herramienta</label>
+            <div>
+                @Html.TextBoxFor(model => model.tool)
+                @Html.ValidationMessageFor(model => model.tool, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <label>Trabajador</label>
+            <div>
+                @Html.TextBoxFor(model => model.worker)
+                @Html.ValidationMessageFor(model => model.worker, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <label>Entrega</label>
+            <div>
+                @Html.TextBoxFor(model => model.delivery)
+                @Html.ValidationMessageFor(model => model.delivery, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <label>Retiro</label>
+            <div>
+                @Html.TextBoxFor(model => model.retirement)
+                @Html.ValidationMessageFor(model => model.retirement, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div>
+            <label>Descripción</label>
+            <div>
+                @Html.TextBoxFor(model => model.description)
+                @Html.ValidationMessageFor(model => model.description, "", new { @class = "form-control" })
+            </div>
+        </div>
+
+        <button>Guardar</button>
+        <a href="@Url.Action("AssignList", "Assign")">Atras</a>
+    }
+</div>
