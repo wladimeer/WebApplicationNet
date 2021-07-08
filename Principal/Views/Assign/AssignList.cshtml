@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Principal.Models.Assign>
+﻿@model IEnumerable<Principal.Models.Assignment>
 
 @{
-    ViewBag.Title = "AssignList";
+    ViewBag.Title = "Lista de Asignaciones";
     Layout = "~/Views/Shared/_Intern.cshtml";
     ViewBag.Controller = "Home";
     ViewBag.Action = "Extern";
@@ -39,10 +39,10 @@
                 {
                     <tr>
                         <td>@a.id</td>
-                        <td>@a.tool</td>
-                        <td>@a.worker</td>
-                        <td>@a.delivery</td>
-                        <td>@a.retirement</td>
+                        <td>@a.Tool.name</td>
+                        <td>@a.Worker.name @a.Worker.lastnames</td>
+                        <td>@a.delivery.ToString("dd/MM/yyyy")</td>
+                        <td>@a.retirement.ToString("dd/MM/yyyy")</td>
                         <td>@a.description</td>
                         <td><a href="@Url.Action("AssignUpdate", "Assign", new { id = a.id })">Actualizar</a></td>
                         <td><a href="@Url.Action("AssignDelete", "Assign", new { id = a.id })">Eliminar</a></td>
@@ -52,7 +52,6 @@
         </table>
     } else
     {
-        <p>No se Encontraron Asignaciones</p>
+        <p>No Se Encontraron Asignaciones</p>
     }
-
 </div>

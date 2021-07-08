@@ -1,0 +1,22 @@
+﻿@model Principal.Models.Assignment
+
+@{
+    ViewBag.Title = "Eliminar Asignación";
+    Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.Controller = "Home";
+    ViewBag.Action = "Extern";
+}
+
+<div>
+    @using (Html.BeginForm("AssignDelete", "Assign", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <p>¿Seguro que quieres eliminar la asignación del trabajador @Model.Worker.name @Model.Worker.lastnames?</p>
+        </div>
+
+        <button>Eliminar</button>
+        <a href="@Url.Action("AssignList", "Assign")">Atras</a>
+    }
+</div>

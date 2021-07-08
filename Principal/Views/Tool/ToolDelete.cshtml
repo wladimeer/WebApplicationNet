@@ -8,7 +8,7 @@
 }
 
 <div>
-    @using (Html.BeginForm("ToolDelete", "Tools", FormMethod.Post))
+    @using (Html.BeginForm("ToolDelete", "Tool", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
@@ -17,6 +17,6 @@
         </div>
 
         <button>Eliminar</button>
-        <a href="@Url.Action("ToolList", "Tools")">Atras</a>
+        <a href="@Url.Action("ToolList", "Tool")">Atras</a>
     }
 </div>

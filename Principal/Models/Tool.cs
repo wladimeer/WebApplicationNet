@@ -1,13 +1,15 @@
 namespace Principal.Models
 {
-    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     public partial class Tool
     {
+        public Tool()
+        {
+            Assignments = new HashSet<Assignment>();
+        }
+
         public int id { get; set; }
 
         [Required(ErrorMessage = "Ingresa un Nombre.")]
@@ -17,5 +19,7 @@ namespace Principal.Models
         [Required(ErrorMessage = "Ingresa una Descripción.")]
         [StringLength(90, MinimumLength = 5, ErrorMessage = "Verifica la Descripción.")]
         public string description { get; set; }
+
+        public virtual ICollection<Assignment> Assignments { get; set; }
     }
 }

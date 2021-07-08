@@ -1,44 +1,44 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/996838bafa.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="~/Icons/users-cog-solid.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <title>@ViewBag.Title</title>
 </head>
 <body style="background: #F2F2F2;">
     <div class="container mt-2 mb-2">
-        <h1 class="text-center" style="font-family: 'Rubik', sans-serif;">Principal</h1>
+        <h1 class="text-center" style="font-family: 'Rubik', sans-serif;">Managements</h1>
 
         <div class="container px-4 py-1" id="featured-3">
             <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-                <div class="feature col"  style="font-family: 'Rubik', sans-serif;">
+                <div class="feature col" style="font-family: 'Rubik', sans-serif;">
                     <div class="feature-icon bg-primary bg-gradient">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#collection" /></svg>
+                        <i class="fas fa-tools" style="color: #FFFFFF; font-size: 2em; padding: 5px;"></i>
                     </div>
 
                     <h2>Herramientas</h2>
                     <p>Puedes ver las herramientas disponibles, actualizar las existentes, eliminarlas o agregar unas nuevas.</p>
-                    <a href="@Url.Action("ToolList", "Tools")" class="icon-link">Ir a Herramientas</a>
+                    <a href="@Url.Action("ToolList", "Tool")" class="icon-link">Ir a Herramientas</a>
                 </div>
 
                 <div class="feature col" style="font-family: 'Rubik', sans-serif;">
                     <div class="feature-icon bg-primary bg-gradient">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2" /></svg>
+                        <i class="fas fa-user" style="color: #FFFFFF; font-size: 2em; padding: 5px;"></i>
                     </div>
 
                     <h2>Trabajadores</h2>
                     <p>Puedes ver a los trabajadores disponibles, actualizar a los existentes, eliminarlos o agregar unos nuevos.</p>
-                    <a href="@Url.Action("WorkerList", "Workers")" class="icon-link">Ir a Trabajadores</a>
+                    <a href="@Url.Action("WorkerList", "Worker")" class="icon-link">Ir a Trabajadores</a>
                 </div>
 
                 <div class="feature col" style="font-family: 'Rubik', sans-serif;">
                     <div class="feature-icon bg-primary bg-gradient">
-                        <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2" /></svg>
+                        <i class="fas fa-thumbtack" style="color: #FFFFFF; font-size: 2em; padding: 5px;"></i>
                     </div>
 
                     <h2>Asignaciones</h2>

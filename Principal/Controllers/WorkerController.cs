@@ -1,106 +1,104 @@
 ﻿using Principal.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Principal.Controllers
 {
-    public class ToolsController : Controller
+    public class WorkerController : Controller
     {
         private ModelData database = new ModelData();
-        
+
         [HttpGet]
-        public ActionResult ToolList ()
+        public ActionResult WorkerList ()
         {
-            return View((from t in database.Tools select t).ToList());
+            return View((from w in database.Workers select w).ToList());
         }
 
         [HttpGet]
-        public ActionResult NewTool ()
+        public ActionResult NewWorker ()
         {
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewTool (Tool tool)
+        public ActionResult NewWorker (Worker worker)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    database.Tools.Add(tool);
+                    database.Workers.Add(worker);
                     database.SaveChanges();
                 }
                 catch (Exception)
                 {
                     TempData["error"] = "Hubo un Error al Agregar!";
-                    return RedirectToAction("ToolList", "Tools");
+                    return RedirectToAction("WorkerList", "Worker");
                 }
 
-                TempData["success"] = "Herramienta Agregada!";
-                return RedirectToAction("ToolList", "Tools");
+                TempData["success"] = "Trabajador Agregado!";
+                return RedirectToAction("WorkerList", "Worker");
             }
 
-            return View(tool);
+            return View(worker);
         }
 
         [HttpGet]
-        public ActionResult ToolUpdate (int? id)
+        public ActionResult WorkerUpdate (int? id)
         {
-            return View(database.Tools.Find(id));
+            return View(database.Workers.Find(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ToolUpdate (Tool tool)
+        public ActionResult WorkerUpdate (Worker worker)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    database.Entry(tool).State = EntityState.Modified;
+                    database.Entry(worker).State = EntityState.Modified;
                     database.SaveChanges();
                 }
                 catch (Exception)
                 {
                     TempData["error"] = "Hubo un Error al Actualizar!";
-                    return RedirectToAction("ToolList", "Tools");
+                    return RedirectToAction("WorkerList", "Worker");
                 }
 
-                TempData["success"] = "Herramienta Actualizada!";
-                return RedirectToAction("ToolList", "Tools");
+                TempData["success"] = "Trabajador Actualizado!";
+                return RedirectToAction("WorkerList", "Worker");
             }
 
-            return View(tool);
+            return View(worker);
         }
 
         [HttpGet]
-        public ActionResult ToolDelete (int? id)
+        public ActionResult WorkerDelete (int? id)
         {
-            return View(database.Tools.Find(id));
+            return View(database.Workers.Find(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ToolDelete (Tool tool)
+        public ActionResult WorkerDelete (Worker worker)
         {
             try
             {
-                database.Tools.Remove(database.Tools.Find(tool.id));
+                database.Workers.Remove(database.Workers.Find(worker.id));
                 database.SaveChanges();
             }
             catch (Exception)
             {
                 TempData["error"] = "Hubo un Error al Eliminar!";
-                return RedirectToAction("ToolList", "Tools");
+                return RedirectToAction("WorkerList", "Worker");
             }
 
-            TempData["success"] = "Herramienta Eliminada!";
-            return RedirectToAction("ToolList", "Tools");
+            TempData["success"] = "Trabajador Eliminado!";
+            return RedirectToAction("WorkerList", "Worker");
         }
 
         protected override void Dispose (bool disposing)

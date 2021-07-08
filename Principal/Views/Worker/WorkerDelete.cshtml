@@ -8,15 +8,15 @@
 }
 
 <div>
-    @using (Html.BeginForm("WorkerDelete", "Workers", FormMethod.Post))
+    @using (Html.BeginForm("WorkerDelete", "Worker", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
         <div>
-            <p>¿Seguro que quieres eliminar al trabajador @Model.name?</p>
+            <p>¿Seguro que quieres eliminar al trabajador @Model.name @Model.lastnames?</p>
         </div>
 
         <button>Eliminar</button>
-        <a href="@Url.Action("WorkerList", "Workers")">Atras</a>
+        <a href="@Url.Action("WorkerList", "Worker")">Atras</a>
     }
 </div>

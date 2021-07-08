@@ -1,9 +1,7 @@
 ﻿using Principal.Models;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Principal.Controllers
@@ -13,26 +11,29 @@ namespace Principal.Controllers
         private ModelData database = new ModelData();
 
         [HttpGet]
-        public ActionResult AssignList ()
+        public ActionResult AssignList()
         {
-            return View((from a in database.Assigns select a).ToList());
+            return View(database.Assignments.Include(w => w.Worker).Include(t => t.Tool).ToList());
         }
 
         [HttpGet]
-        public ActionResult NewAssign ()
+        public ActionResult NewAssign()
         {
+            ViewBag.worker_id = new SelectList((from w in database.Workers select w).ToList(), "id", "name");
+            ViewBag.tool_id = new SelectList((from t in database.Tools select t).ToList(), "id", "name");
+
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult NewAssign (Assign assign)
+        public ActionResult NewAssign(Assignment assignment)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    database.Assigns.Add(assign);
+                    database.Assignments.Add(assignment);
                     database.SaveChanges();
                 }
                 catch (Exception)
@@ -45,24 +46,32 @@ namespace Principal.Controllers
                 return RedirectToAction("AssignList", "Assign");
             }
 
-            return View(assign);
+            ViewBag.worker_id = new SelectList((from w in database.Workers select w).ToList(), "id", "name", assignment.worker_id);
+            ViewBag.tool_id = new SelectList((from t in database.Tools select t).ToList(), "id", "name", assignment.tool_id);
+
+            return View(assignment);
         }
 
         [HttpGet]
-        public ActionResult AssignUpdate (int? id)
+        public ActionResult AssignUpdate(int? id)
         {
-            return View(database.Assigns.Find(id));
+            var assignment = database.Assignments.Find(id);
+
+            ViewBag.worker_id = new SelectList((from w in database.Workers select w).ToList(), "id", "name", assignment.worker_id);
+            ViewBag.tool_id = new SelectList((from t in database.Tools select t).ToList(), "id", "name", assignment.tool_id);
+
+            return View(assignment);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignUpdate (Assign assign)
+        public ActionResult AssignUpdate(Assignment assignment)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    database.Entry(assign).State = EntityState.Modified;
+                    database.Entry(assignment).State = EntityState.Modified;
                     database.SaveChanges();
                 }
                 catch (Exception)
@@ -75,22 +84,25 @@ namespace Principal.Controllers
                 return RedirectToAction("AssignList", "Assign");
             }
 
-            return View(assign);
+            ViewBag.worker_id = new SelectList((from w in database.Workers select w).ToList(), "id", "name", assignment.worker_id);
+            ViewBag.tool_id = new SelectList((from t in database.Tools select t).ToList(), "id", "name", assignment.tool_id);
+
+            return View(assignment);
         }
 
         [HttpGet]
-        public ActionResult AssignDelete (int? id)
+        public ActionResult AssignDelete(int? id)
         {
-            return View(database.Assigns.Find(id));
+            return View(database.Assignments.Find(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AssignDelete (Assign assign)
+        public ActionResult AssignDelete(Assignment assignment)
         {
             try
             {
-                database.Assigns.Remove(database.Assigns.Find(assign.id));
+                database.Assignments.Remove(database.Assignments.Find(assignment.id));
                 database.SaveChanges();
             }
             catch (Exception)
