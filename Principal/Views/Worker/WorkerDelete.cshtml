@@ -12,11 +12,26 @@
     {
         @Html.AntiForgeryToken()
 
-        <div>
-            <p>¿Seguro que quieres eliminar al trabajador @Model.name @Model.lastnames?</p>
-        </div>
+        <div class="row card m-1">
+            <div class="col-md">
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <div class="alert alert-warning mb-lg-1" role="alert">
+                            <div class="d-flex justify-content-start">
+                                <div style="margin-right: 5px;">
+                                    <i class="fas fa-exclamation-circle"></i>
+                                </div>
+                                <span>¿Seguro que Quieres Eliminar al Trabajador @Model.name @Model.lastnames?</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <button>Eliminar</button>
-        <a href="@Url.Action("WorkerList", "Worker")">Atras</a>
+                <div class="my-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-success col-5">Eliminar</button>
+                    <a class="btn btn-outline-danger col-5" href="@Url.Action("WorkerList", "Worker")">Atrás</a>
+                </div>
+            </div>
+        </div>
     }
 </div>

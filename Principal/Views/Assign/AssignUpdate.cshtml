@@ -11,60 +11,114 @@
     @using (Html.BeginForm("AssignUpdate", "Assign", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div>
-            <label>Id</label>
-            <div>
-                @Model.id
+        <div class="row card m-1">
+            <div class="col-md">
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="id" style="cursor: pointer;">Identificador</label>
+
+                            <div class="col-12">
+                                <input readonly value="@Model.id" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="tool_id" style="cursor: pointer;">Herramienta</label>
+
+                            <div class="col-12">
+                                @Html.DropDownList("tool_id", null, "Selecciona", htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="mt-1">
+                                @Html.ValidationMessageFor(model => model.tool_id, "", new {
+                                    @class = "text-danger"
+                                })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="worker_id" style="cursor: pointer;">Trabajador</label>
+
+                            <div class="col-12">
+                                @Html.DropDownList("worker_id", null, "Selecciona", htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="mt-1">
+                                @Html.ValidationMessageFor(model => model.worker_id, "", new {
+                                    @class = "text-danger"
+                                })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="delivery" style="cursor: pointer;">Entrega</label>
+
+                            <div class="col-12">
+                                <input readonly value="@Model.delivery.ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+
+                            <div style="display: none;">
+                                @Html.TextBoxFor(model => model.delivery)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="retirement" style="cursor: pointer;">Retiro</label>
+
+                            <div class="col-12">
+                                <input readonly value="@Model.retirement.ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+
+                            <div style="display: none;">
+                                @Html.TextBoxFor(model => model.retirement)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="description" style="cursor: pointer;">Descripción</label>
+
+                            <div class="col-12">
+                                @Html.TextBoxFor(model => model.description, htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div class="mt-1">
+                                @Html.ValidationMessageFor(model => model.description, "", new {
+                                    @class = "text-danger"
+                                })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-success col-5">Actualizar</button>
+                    <a class="btn btn-outline-danger col-5" href="@Url.Action("AssignList", "Assign")">Atrás</a>
+                </div>
             </div>
         </div>
-
-        <div>
-            <label>Herramienta</label>
-            <div>
-                @Html.DropDownList("tool_id", null, "Selecciona", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.tool_id, "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div>
-            <label>Trabajador</label>
-            <div>
-                @Html.DropDownList("worker_id", null, "Selecciona", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.worker_id, "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div>
-            <label>Entrega</label>
-            <div>
-                @Model.delivery.ToString("yyyy-MM-dd")
-            </div>
-            <div style="display: none;">
-                @Html.TextBoxFor(model => model.delivery)
-            </div>
-        </div>
-
-        <div>
-            <label>Retiro</label>
-            <div>
-                @Model.delivery.ToString("yyyy-MM-dd")
-            </div>
-            <div style="display: none;">
-                @Html.TextBoxFor(model => model.retirement)
-            </div>
-        </div>
-
-        <div>
-            <label>Descripción</label>
-            <div>
-                @Html.TextBoxFor(model => model.description)
-                @Html.ValidationMessageFor(model => model.description, "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <button>Actualizar</button>
-        <a href="@Url.Action("AssignList", "Assign")">Atras</a>
     }
 </div>

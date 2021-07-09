@@ -1,0 +1,17 @@
+﻿.desktop {
+    display: table;
+}
+
+.movile {
+    display: none;
+}
+
+@media screen and (max-width: 720px) {
+    .desktop {
+        display: none;
+    }
+
+    .movile {
+        display: block;
+    }
+}

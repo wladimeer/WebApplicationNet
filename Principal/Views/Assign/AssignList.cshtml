@@ -3,55 +3,135 @@
 @{
     ViewBag.Title = "Lista de Asignaciones";
     Layout = "~/Views/Shared/_Intern.cshtml";
+    ViewBag.ControllerCreate = "Assign";
     ViewBag.Controller = "Home";
     ViewBag.Action = "Extern";
 }
 
 <div>
-    <a href="@Url.Action("NewAssign", "Assign")">Nueva Asignación</a>
-
     @if (TempData["success"] != null)
     {
-        <h5>@TempData["success"]</h5>
+        <div class="d-block m-1">
+            <div class="alert alert-success" role="alert">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <i class="fas fa-check-circle"></i>
+                        @TempData["success"]
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
     }
 
     @if (TempData["error"] != null)
     {
-        <h5>@TempData["error"]</h5>
+        <div class="d-block m-1">
+            <div class="alert alert-danger" role="alert">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <i class="fas fa-times-circle"></i>
+                        @TempData["error"]
+                    </div>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
     }
 
     @if (@Model.Count() > 0)
     {
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Herramienta</th>
-                    <th>Trabajador</th>
-                    <th>Entrega</th>
-                    <th>Retiro</th>
-                    <th>Descripción</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="border rounded m-1 px-2">
+            <table class="table mt-3 desktop">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Herramienta</th>
+                        <th scope="col">Trabajador</th>
+                        <th scope="col">Retiro</th>
+                        <th scope="col" colspan="2" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var a in Model)
+                    {
+                        <tr>
+                            <td>@a.id</td>
+                            <td>@a.Tool.name</td>
+                            @if (String.Concat(a.Worker.name, a.Worker.lastnames).Length > 15)
+                            {
+                                <td><label>@String.Concat(a.Worker.name, " " + a.Worker.lastnames).Substring(0, 15)</label>...</td>
+                            } else
+                            {
+                                <td>@a.Worker.name @a.Worker.lastnames</td>
+                            }
+                            <td>@a.retirement.ToString("dd/MM/yyyy")</td>
+                            <td class="text-center">
+                                <a class="btn btn-outline-primary d-inline" href="@Url.Action("AssignUpdate", "Assign", new { id = a.id })">Actualizar</a>
+                                <a class="btn btn-outline-danger d-inline" href="@Url.Action("AssignDelete", "Assign", new { id = a.id })">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="pt-3 pb-3 px-1 movile">
                 @foreach (var a in Model)
                 {
-                    <tr>
-                        <td>@a.id</td>
-                        <td>@a.Tool.name</td>
-                        <td>@a.Worker.name @a.Worker.lastnames</td>
-                        <td>@a.delivery.ToString("dd/MM/yyyy")</td>
-                        <td>@a.retirement.ToString("dd/MM/yyyy")</td>
-                        <td>@a.description</td>
-                        <td><a href="@Url.Action("AssignUpdate", "Assign", new { id = a.id })">Actualizar</a></td>
-                        <td><a href="@Url.Action("AssignDelete", "Assign", new { id = a.id })">Eliminar</a></td>
-                    </tr>
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">#</label>
+                        <label>@a.id</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Herramienta</label>
+                        <label>@a.Tool.name</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Trabajador</label>
+                        <label>@a.Worker.name @a.Worker.lastnames</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Entrega</label>
+                        <label>@a.delivery.ToString("dd/MM/yyyy")</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Retiro</label>
+                        <label>@a.retirement.ToString("dd/MM/yyyy")</label>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Descripción</label>
+
+                        @if (a.description.Length > 38)
+                        {
+                            <label><label>@a.description.Substring(0, 38)</label>...</label>
+                        }
+                        else
+                        {
+                            <label>@a.description</label>
+                        }
+                    </div>
+
+                    <div class="d-flex justify-content-between p-1 py-2 border-bottom">
+                        <label class="fw-bold">Acciones</label>
+                        
+                        <div>
+                            <label><a class="btn btn-outline-primary d-inline" href="@Url.Action("AssignUpdate", "Assign", new { id = a.id })">Actualizar</a></label>
+                            <label><a class="btn btn-outline-danger d-inline" href="@Url.Action("AssignDelete", "Assign", new { id = a.id })">Eliminar</a></label>
+                        </div>
+                    </div>
                 }
-            </tbody>
-        </table>
+            </div>
+        </div>
     } else
     {
-        <p>No Se Encontraron Asignaciones</p>
+        <div class="my-5">
+            <p class="text-center">No Se Encontraron Asignaciones</p>
+        </div>
     }
 </div>

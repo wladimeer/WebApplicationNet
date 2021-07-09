@@ -11,33 +11,79 @@
     @using (Html.BeginForm("NewWorker", "Worker", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div>
-            <label>Nombre</label>
-            <div>
-                @Html.TextBoxFor(model => model.name)
-                @Html.ValidationMessageFor(model => model.name, "", new { @class = "form-control" })
+        <div class="row card m-1">
+            <div class="col-md">
+                <div class="row">
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="name" style="cursor: pointer;">Nombre</label>
+
+                            <div class="col-12">
+                                @Html.TextBoxFor(model => model.name, htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <div>
+                                @Html.ValidationMessageFor(model => model.name, "", new
+                                {
+                                    @class = "text-danger"
+                                })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="lastnames" style="cursor: pointer;">Apellidos</label>
+
+                            <div class="col-12">
+                                @Html.TextBoxFor(model => model.lastnames, htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+
+                            <div class="">
+                                <div>
+                                    @Html.ValidationMessageFor(model => model.lastnames, "", new
+                                    {
+                                        @class = "text-danger"
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 my-3">
+                        <div class="row justify-content-center align-items-center">
+                            <label for="email" style="cursor: pointer;">Correo</label>
+
+                            <div class="col-12">
+                                @Html.TextBoxFor(model => model.email, htmlAttributes: new {
+                                    @class = "form-control"
+                                })
+                            </div>
+
+                            <div class="">
+                                <div>
+                                    @Html.ValidationMessageFor(model => model.email, "", new
+                                    {
+                                        @class = "text-danger"
+                                    })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-3 d-flex justify-content-between">
+                    <button class="btn btn-outline-success col-5">Guardar</button>
+                    <a class="btn btn-outline-danger col-5" href="@Url.Action("WorkerList", "Worker")">Atrás</a>
+                </div>
             </div>
         </div>
-
-        <div>
-            <label>Apellidos</label>
-            <div>
-                @Html.TextBoxFor(model => model.lastnames)
-                @Html.ValidationMessageFor(model => model.lastnames, "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div>
-            <label>Correo</label>
-            <div>
-                @Html.TextBoxFor(model => model.email)
-                @Html.ValidationMessageFor(model => model.email, "", new { @class = "form-control" })
-            </div>
-        </div>
-
-        <button>Guardar</button>
-        <a href="@Url.Action("WorkerList", "Worker")">Atras</a>
     }
 </div>
